@@ -4,17 +4,20 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Converter km and m</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-	<div th:if="${result!=null}">
-		<span class="result" th:text="${result}"></span>
+	<div th:if="${error != null}" class="error-container">
+	   <span th:text="${error}"></span>
 	</div>
-	<span th:text="${error}"></span> 
+	<div th:if="${result != null}" class="result-container">
+	   <span class="result" th:text="${result}"></span>
+	</div>
 	<form action="/" method="post">
 		<h1>Converter</h1>
 		<div>
 			<label for="number">Write number: </label> 
-			<input type="number" name="number" id="number">
+			<input type="text" name="number" id="number">
 		</div>
 		<button type="submit" name="typeConvert" value="km">Convert metter to km</button>
 		<button type="submit" name="typeConvert" value="m">Convert km to metter</button>
