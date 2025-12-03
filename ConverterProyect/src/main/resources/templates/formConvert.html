@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Converter km and m</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div th:if="${result!=null}">
+		<span th:text=""></span> <span class="result" th:text="${result}"></span>
+	</div>
+	<form action="">
+		<h1>Converter</h1>
+		<div th:if="${conversion='km'}">
+			<label for="km">Km</label> <input type="number" name="km" id="km">
+		</div>
+		<div th:if="${conversion='m'}">
+			<label for="m">m</label> <input type="number" name="m" id="m">
+		</div>
+		<button type="submit">Convert</button>
+	</form>
+</body>
+</html>
