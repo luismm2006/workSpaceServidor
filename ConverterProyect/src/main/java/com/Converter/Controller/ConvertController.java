@@ -25,7 +25,7 @@ public class ConvertController {
 	}
 	
 	@PostMapping("/")
-	public double controllerConvert(Optional<String> num1, Optional<String>) {
+	public double controllerConvert(Optional<String> num1, Optional<String> ) {
 		
 	}
 }
