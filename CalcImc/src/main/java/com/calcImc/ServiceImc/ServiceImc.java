@@ -8,13 +8,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Service
 public class ServiceImc {
 	public String asignImc(Optional<String> weight, Optional<String> age, Optional<String> sex, Optional<String> height) throws Exception {
-		try {
+			if(weight.get().isEmpty() || age.get().isEmpty() || sex.get().isEmpty() || height.get().isEmpty()) {
+				throw new Exception("No puedes mandar datos vacíos");
+			}
 			double result = 0;
-			double weightD = Double.parseDouble(weight.get());
-			int ageD = Integer.parseInt(age.get());
-			String sexD = sex.get();
-			double heightD = Double.parseDouble(height.get());
-			result = calculateImc(weightD, heightD);
+			double weightD;
+			int ageD;
+			String sexD;
+			double heightD;
+			try {
+				weightD = Double.parseDouble(weight.get());
+				ageD = Integer.parseInt(age.get());
+				sexD = sex.get();
+				heightD = Double.parseDouble(height.get());				
+			} catch (Exception e) {
+				throw new Exception("Datos inválidos");
+			}
 			
 			if(weightD <= 0) {
 				throw new Exception("El peso no es válido");
@@ -26,39 +35,36 @@ public class ServiceImc {
 				throw new Exception("La altura no es válida");
 			}
 			
+			result = calculateImc(weightD, heightD);
+			
 			String imc = "";
 			
-			if(ageD > 25) {
+			if(ageD >= 25) {
 				if(result < 18.5) {
-					imc = "Bajo peso";
-				}else if(result > 18.5 || result < 24.9) {
-					imc = "Peso normal";
-				}else if(result > 25 || result < 29.9) {
-					imc = "Sobre peso";
+					imc = "Bajo peso " + result;
+				}else if(result >= 18.5 && result <= 24.9) {
+					imc = "Peso normal " + result;
+				}else if(result >= 25 && result <= 29.9) {
+					imc = "Sobre peso " + result;
 				}else {
-					imc = "Obesidad";
+					imc = "Obesidad " + result;
 				}
 				return imc;
-			}
-			if(ageD < 25) {
+			}else{
 				if(result < 17.5) {
-					imc = "Bajo peso";
-				}else if(result > 17.5 || result < 26.9) {
-					imc = "Peso normal";
-				}else if(result > 27 || result < 32.9) {
-					imc = "Sobre peso";
+					imc = "Bajo peso " + result;
+				}else if(result >= 17.5 && result <= 26.9) {
+					imc = "Peso normal " + result;
+				}else if(result >= 27 && result <= 32.9) {
+					imc = "Sobre peso " + result;
 				}else {
-					imc = "Obesidad";
+					imc = "Obesidad " + result;
 				}
 			}
-			
 			return imc;
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
 	}
 	public double calculateImc(double weight, double height) {
-		return weight / (height*2);
+		return weight / (height*height);
 	}
 	
 }

@@ -14,29 +14,35 @@ import com.calcImc.ServiceImc.ServiceImc;
 public class ControllerImc {
 
 	private final ServiceImc serviceImc;
-	
-	
+
 	public ControllerImc(ServiceImc serviceImc) {
 		super();
 		this.serviceImc = serviceImc;
 	}
-	
+
 	@GetMapping("/")
 	public String showImc() {
 		return "imc";
 	}
-	
+
 	@PostMapping("/")
-	public String calculator(@RequestParam Optional<String> weight, @RequestParam Optional<String> age, @RequestParam Optional<String> sex, @RequestParam Optional<String> height, Model model) throws Exception {
+	public String calculator(@RequestParam Optional<String> weight, @RequestParam Optional<String> age,
+			@RequestParam Optional<String> sex, @RequestParam Optional<String> height, Model model) throws Exception {
 		try {
-			if(weight.isPresent() && age.isPresent() && sex.isPresent() && height.isPresent()) {
-				String result = serviceImc.asignImc(weight, age, sex, height);
-				model.addAttribute("result", result);
+			if (weight.isEmpty() || age.isEmpty() || sex.isEmpty() || height.isEmpty()) {
+				model.addAttribute("error", "No puedes enviar campos vacíos");
+				return "imc";
 			}
+			String result = serviceImc.asignImc(weight, age, sex, height);
+			model.addAttribute("result", result);
+			model.addAttribute("weight", weight.get());
+			model.addAttribute("age", age.get());
+			model.addAttribute("sex", sex.get());
+			model.addAttribute("height", height.get());
 		} catch (Exception e) {
 			model.addAttribute("error", e.getMessage());
 		}
 		return "imc";
 	}
-	
+
 }
