@@ -1,14 +1,15 @@
 package com.calcImc.ControllerImc;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.calcImc.ServiceImc.ServiceImc;
+import com.calcImc.modelImc.ModelImc;
 
 @Controller
 public class ControllerImc {
@@ -21,27 +22,20 @@ public class ControllerImc {
 	}
 
 	@GetMapping("/")
-	public String showImc() {
+	public String showImc(Model model) {
+		model.addAttribute("imc", new ModelImc());
 		return "imc";
 	}
 
 	@PostMapping("/")
-	public String calculator(@RequestParam Optional<String> weight, @RequestParam Optional<String> age,
-			@RequestParam Optional<String> sex, @RequestParam Optional<String> height, Model model) throws Exception {
-		try {
-			if (weight.isEmpty() || age.isEmpty() || sex.isEmpty() || height.isEmpty()) {
-				model.addAttribute("error", "No puedes enviar campos vacíos");
-				return "imc";
-			}
-			String result = serviceImc.asignImc(weight, age, sex, height);
-			model.addAttribute("result", result);
-			model.addAttribute("weight", weight.get());
-			model.addAttribute("age", age.get());
-			model.addAttribute("sex", sex.get());
-			model.addAttribute("height", height.get());
-		} catch (Exception e) {
-			model.addAttribute("error", e.getMessage());
+	public String calculator(Model model, @Validated @ModelAttribute("imc") ModelImc modelImc, BindingResult bindingResult ) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			return "imc";
 		}
+		String imc = serviceImc.asignImc(modelImc);
+		model.addAttribute("imc", new ModelImc());
+		
 		return "imc";
 	}
 

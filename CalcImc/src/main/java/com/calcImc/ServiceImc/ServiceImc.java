@@ -1,26 +1,23 @@
 package com.calcImc.ServiceImc;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import com.calcImc.modelImc.ModelImc;
 
 @Service
 public class ServiceImc {
-	public String asignImc(Optional<String> weight, Optional<String> age, Optional<String> sex, Optional<String> height) throws Exception {
-			if(weight.get().isEmpty() || age.get().isEmpty() || sex.get().isEmpty() || height.get().isEmpty()) {
-				throw new Exception("No puedes mandar datos vacíos");
-			}
+	public String asignImc(ModelImc modelImc) throws Exception{
+			
 			double result = 0;
 			double weightD;
 			int ageD;
 			String sexD;
 			double heightD;
 			try {
-				weightD = Double.parseDouble(weight.get());
-				ageD = Integer.parseInt(age.get());
-				sexD = sex.get();
-				heightD = Double.parseDouble(height.get());				
+				weightD = modelImc.getWeight();
+				ageD = modelImc.getAge();
+				sexD = modelImc.getSex();
+				heightD = modelImc.getHeight();				
 			} catch (Exception e) {
 				throw new Exception("Datos inválidos");
 			}
