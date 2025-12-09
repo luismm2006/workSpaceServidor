@@ -34,7 +34,7 @@ public class ControllerImc {
 			return "imc";
 		}
 		String imc = serviceImc.asignImc(modelImc);
-		model.addAttribute("imc", new ModelImc());
+		model.addAttribute("result", imc);
 		
 		return "imc";
 	}

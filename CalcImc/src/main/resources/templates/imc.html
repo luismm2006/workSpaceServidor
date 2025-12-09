@@ -8,7 +8,9 @@
 </head>
 <body>
     <div th:if="${result != null}" class="result">
-        <span th:utext="'Tu IMC <br> siendo ' + ${sex} + ',  con ' + ${age} + ' años, <br> pesando ' + ${weight} + ' kg y midiendo ' + ${height} + '<br> es: ' + ${result}"></span>
+        <span th:utext="|Tu IMC <br> siendo ${imc.sex}, con ${imc.age} años,<br>
+    pesando ${imc.weight} kg y midiendo ${imc.height} cm <br>
+    es: ${result}|"></span>
     </div>
     <div th:if="${error != null}" class="error">
         <span th:text="${error}"></span>
