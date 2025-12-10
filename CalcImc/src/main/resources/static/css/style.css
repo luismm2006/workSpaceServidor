@@ -75,3 +75,6 @@ button:hover {
     width: 350px;
     text-align: center;
 }
+.spanerror{
+	color: red;
+}

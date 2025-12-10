@@ -28,14 +28,18 @@ public class ControllerImc {
 	}
 
 	@PostMapping("/")
-	public String calculator(Model model, @Validated @ModelAttribute("imc") ModelImc modelImc, BindingResult bindingResult ) throws Exception{
+	public String calculator(Model model, @Validated @ModelAttribute("imc") ModelImc modelImc, BindingResult bindingResult ){
 		
 		if(bindingResult.hasErrors()) {
 			return "imc";
 		}
 		String imc = serviceImc.asignImc(modelImc);
+	
 		model.addAttribute("result", imc);
-		
+		model.addAttribute("imcResul", modelImc);
+		model.addAttribute("imc", new ModelImc());
+	
+
 		return "imc";
 	}
 

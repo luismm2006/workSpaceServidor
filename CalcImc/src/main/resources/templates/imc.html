@@ -8,34 +8,34 @@
 </head>
 <body>
     <div th:if="${result != null}" class="result">
-        <span th:utext="|Tu IMC <br> siendo ${imc.sex}, con ${imc.age} años,<br>
-    pesando ${imc.weight} kg y midiendo ${imc.height} cm <br>
+        <span th:utext="|Tu IMC <br> siendo ${imcResul.sex}, con ${imcResul.age} años,<br>
+    pesando ${imcResul.weight} kg y midiendo ${imcResul.height} cm <br>
     es: ${result}|"></span>
     </div>
     <div th:if="${error != null}" class="error">
         <span th:text="${error}"></span>
     </div>
     <h1>Bienvenido a la calculadora de IMC</h1>
-    <form action="/" method="POST" th:object="${imc}">
-        <div th:classappend="${#fields.hasErrors('weight') ? 'bg-danger' : ''}">
+    <form action="/" th:method="POST" th:object="${imc}">
+        <div>
             <label for="weight">Peso</label>
             <input type="text" name="weight" th:field="*{weight}" id="weight">
-            <span th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" class="help-block" id="id-error">Errores: </span>
+            <span th:classappend="${#fields.hasErrors('weight') ? 'spanerror' : ''}" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" class="help-block" id="id-error">Errores: </span>
         </div>
-        <div th:classappend="${#fields.hasErrors('age') ? 'bg-danger' : ''}">
+        <div>
             <label for="age">Edad</label>
             <input type="text" name="age" th:field="*{age}" id="age">
-            <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="help-block" id="id-error">Errores: </span>           
+            <span th:classappend="${#fields.hasErrors('weight') ? 'spanerror' : ''}" th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="help-block" id="id-error">Errores: </span>           
         </div>
-        <div th:classappend="${#fields.hasErrors('sex') ? 'bg-danger' : ''}">
+        <div>
             <label for="sex">Sexo</label>
             <input type="text" name="sex" th:field="*{sex}" id="sex">
-            <span th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="help-block" id="id-error">Errores: </span>
+            <span th:classappend="${#fields.hasErrors('weight') ? 'spanerror' : ''}" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}" class="help-block" id="id-error">Errores: </span>
         </div>
-        <div th:classappend="${#fields.hasErrors('height') ? 'bg-danger' : ''}">
+        <div>
             <label for="height">Altura</label>
             <input type="text" name="height" th:field="*{height}" id="height">
-            <span th:if="${#fields.hasErrors('height')}" th:errors="*{height}" class="help-block" id="id-error">Errores: </span>
+            <span th:classappend="${#fields.hasErrors('weight') ? 'spanerror' : ''}" th:if="${#fields.hasErrors('height')}" th:errors="*{height}" class="help-block" id="id-error">Errores: </span>
         </div>
         <button type="submit">Calcular IMC</button>
     </form>
