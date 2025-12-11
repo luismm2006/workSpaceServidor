@@ -2,52 +2,77 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Formulario de persona</title>
+  <title>Personas</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body>
-  <div class="form-container">
-    <h1>Añadir persona</h1>
-    <form action="#" method="post">
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input
-          type="text"
-          id="nombre"
-          name="nombre"
-          placeholder="Introduce el nombre"
-          required
-        >
-      </div>
-      <div class="form-group">
-        <label for="apellidos">Apellidos</label>
-        <input
-          type="text"
-          id="apellidos"
-          name="apellidos"
-          placeholder="Introduce los apellidos"
-          required
-        >
-      </div>
-      <div class="form-group">
-        <label>Sexo</label>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="sexo" value="H" required>
-            Hombre
-          </label>
-          <label>
-            <input type="radio" name="sexo" value="M">
-            Mujer
-          </label>
-          <label>
-            <input type="radio" name="sexo" value="O">
-            Otro
-          </label>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>Listado de personas</h2>
+
+      <table class="people-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Sexo</th>
+			<th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="item : ${listPeople}">
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.surname}"></td>
+            <td th:text="${item.sexo ? 'Mujer' : 'Hombre'}"></td>
+			<td>
+				<form th:action="@{/people/edit}" th:method="post">
+					<input type="hidden" name="id" th:value="${item.id}">
+					<button type="submit">Editar</button>
+				</form>
+				<form th:action="@{/people/delete}" th:method="post">
+					<input type="hidden" name="id" th:value="${item.id}">
+					<button type="submit">Eliminar</button>
+				</form>
+			</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card form-card">
+      <h2>Añadir persona</h2>
+
+      <form action="/" th:method="post" th:object="${person}">
+		<input type="hidden" th:field="*{id}">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" th:field="*{name}">
+		  <span th:errors="*{name}">Errores: </span>
         </div>
-      </div>
-      <button type="submit" class="btn-primary">Guardar</button>
-    </form>
+
+        <div class="form-group">
+          <label>Apellidos</label>
+          <input type="text" th:field="*{surname}">
+		  <span th:errors="*{surname}">Errores: </span>
+        </div>
+
+        <div class="form-group">
+          <label>Sexo</label>
+          <div class="radio-group">
+            <label><input type="radio" name="sexo" value="0" th:field="*{sexo}"> Hombre</label>
+            <label><input type="radio" name="sexo" value="1" th:field="*{sexo}"> Mujer</label>
+          </div>
+			<span th:errors="*{sexo}"></span>
+        </div>
+
+        <button type="submit" class="btn-primary">Guardar</button>
+      </form>
+    </div>
+
   </div>
+
 </body>
 </html>

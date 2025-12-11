@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -16,15 +17,17 @@ public class PersonaModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotNull
+	@NotNull(message="Introduce un nombre")
+	@NotEmpty(message="Introduce un nombre")
 	@Column(name="nombre")
 	private String name;
 	
-	@NotNull
+	@NotNull(message="Introduce un apellido")
+	@NotEmpty(message="Introduce un apellido")
 	@Column(name="apellidos")
 	private String surname;
 	
-	@NotNull
+	@NotNull(message="Introduce un sexo")
 	@Column(name="sexo")
 	private String sexo;
 

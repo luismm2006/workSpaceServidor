@@ -1,6 +1,7 @@
 package com.persona.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,5 +20,12 @@ public class PersonService {
 		
 		public List<PersonaModel> getPeople() {
 			return personRepository.findAll();
+		}
+		
+		public void postPeople(PersonaModel personaModel) {
+			personRepository.save(personaModel);
+		}
+		public PersonaModel editPeople(Integer id) {
+			return personRepository.findById(id).get();
 		}
 }
