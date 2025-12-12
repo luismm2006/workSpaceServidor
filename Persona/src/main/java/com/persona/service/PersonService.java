@@ -28,4 +28,7 @@ public class PersonService {
 		public PersonaModel editPeople(Integer id) {
 			return personRepository.findById(id).get();
 		}
+		public void deletePeople(Integer id) {
+			personRepository.deleteById(id);
+		}
 }

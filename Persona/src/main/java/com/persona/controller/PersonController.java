@@ -46,7 +46,7 @@ public class PersonController {
 	@PostMapping("/people/edit")
 	public String editPerson(@RequestParam Integer id, Model model) {
 
-	    PersonaModel persona = personService.editPeople(id);
+	    PersonaModel persona = personService.editPeople(id); //trae esa persona por ese id, incluye el id y los demás campos, por eso accede al id en el html
 
 	    model.addAttribute("person", persona); // carga datos en el formulario
 	    model.addAttribute("listPeople", personService.getPeople()); //  mantiene la tabla
@@ -55,5 +55,11 @@ public class PersonController {
 	    // misma vista para poder hacer el Post que está en el listPeople, al tener en el html un input hidden con el id, al mandar el id lo puede almacenar, sino hay lo crea bbdd
 	}
 
+	@PostMapping("/people/delete")
+	public String deletePerson(@RequestParam Integer id, Model model) {
+		personService.deletePeople(id);
+		model.addAttribute("listPeople", personService.getPeople());
+		return "redirect:/people";
+	}
 	
 }

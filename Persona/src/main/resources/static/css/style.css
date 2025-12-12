@@ -95,3 +95,34 @@ input[type="text"] {
 .btn-primary:hover {
   background: #1d4ed8;
 }
+
+/* BOTONES DE ACCIÓN EN LA TABLA */
+.action-btn {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+/* Botón Editar */
+.btn-edit {
+  background: #10b981; /* verde */
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #059669;
+}
+
+/* Botón Eliminar */
+.btn-delete {
+  background: #ef4444; /* rojo */
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+}

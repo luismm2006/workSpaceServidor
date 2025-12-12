@@ -29,12 +29,13 @@
             <td th:text="${item.sexo ? 'Mujer' : 'Hombre'}"></td>
 			<td>
 				<form th:action="@{/people/edit}" th:method="post">
-					<input type="hidden" name="id" th:value="${item.id}">
-					<button type="submit">Editar</button>
+				    <input type="hidden" name="id" th:value="${item.id}">
+				    <button type="submit" class="action-btn btn-edit">Editar</button>
 				</form>
+
 				<form th:action="@{/people/delete}" th:method="post">
-					<input type="hidden" name="id" th:value="${item.id}">
-					<button type="submit">Eliminar</button>
+				    <input type="hidden" name="id" th:value="${item.id}">
+				    <button type="submit" class="action-btn btn-delete">Eliminar</button>
 				</form>
 			</td>
           </tr>
