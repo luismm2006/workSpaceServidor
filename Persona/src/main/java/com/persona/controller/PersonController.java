@@ -27,38 +27,85 @@ public class PersonController {
 	
 	@GetMapping({"/", "/people"})
 	public String getPeople(Model model) {
-		model.addAttribute("listPeople", this.personService.getPeople());
+		try {
+			model.addAttribute("listPeople", this.personService.getPeople());
+		} catch (Exception e) {
+			model.addAttribute("result", e.getMessage());
+		}
 		model.addAttribute("person", new PersonaModel());
 		return "listPeople";
 	}
 	
-	@PostMapping("/")
+	@GetMapping("/form")
+	public String getForm(Model model) {
+		model.addAttribute("person", new PersonaModel());
+		return "form";
+	}
+	
+	@GetMapping("/addPeople")
+	public String getAddPeople(Model model) {
+		model.addAttribute("person", new PersonaModel());
+		return "form";
+	}
+	
+	@PostMapping("/addPeople")
 	public String postPeople(Model model, @Validated @ModelAttribute("person") PersonaModel personaModel, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("listPeople", personService.getPeople());
-	        return "listPeople";
+			try {
+				model.addAttribute("listPeople", personService.getPeople());
+			} catch (Exception e) {
+				model.addAttribute("result", e.getMessage());
+			}
+			return "form";
 		}
-		personService.postPeople(personaModel);
+		try {
+			personService.postPeople(personaModel);
+		} catch (Exception e) {
+			model.addAttribute("result", e.getMessage());
+		}
 		//Uso de patrón PRG (Post Redirect Get) dice al navegador: “vete a esta URL como si el usuario la hubiera escrito en la barra de direcciones”.
 		return "redirect:/people";
 	}
 	
-	@PostMapping("/people/edit")
+	@GetMapping("/editPeople")
+	public String getEditPeople(Model model) {
+		model.addAttribute("person", new PersonaModel());
+		return "form";
+	}
+	
+	@PostMapping("/editPeople")
 	public String editPerson(@RequestParam Integer id, Model model) {
 
-	    PersonaModel persona = personService.editPeople(id); //trae esa persona por ese id, incluye el id y los demás campos, por eso accede al id en el html
+	    PersonaModel persona;
+		try {
+			persona = personService.editPeople(id);
+			model.addAttribute("person", persona); // carga datos en el formulario
+		} catch (Exception e) {
+			model.addAttribute("result", e.getMessage());
+		} //trae esa persona por ese id, incluye el id y los demás campos, por eso accede al id en el html
 
-	    model.addAttribute("person", persona); // carga datos en el formulario
-	    model.addAttribute("listPeople", personService.getPeople()); //  mantiene la tabla
+	    try {
+			model.addAttribute("listPeople", personService.getPeople());
+		} catch (Exception e) {
+			model.addAttribute("result", e.getMessage());
+		} //  mantiene la tabla
 
-	    return "listPeople"; 
+	    return "redirect:/people"; 
 	    // misma vista para poder hacer el Post que está en el listPeople, al tener en el html un input hidden con el id, al mandar el id lo puede almacenar, sino hay lo crea bbdd
 	}
 
 	@PostMapping("/people/delete")
 	public String deletePerson(@RequestParam Integer id, Model model) {
-		personService.deletePeople(id);
-		model.addAttribute("listPeople", personService.getPeople());
+		try {
+			personService.deletePeople(id);
+		} catch (Exception e) {
+			model.addAttribute("result", e.getMessage());
+		}
+		try {
+			model.addAttribute("listPeople", personService.getPeople());
+		} catch (Exception e) {
+			model.addAttribute("result", e.getMessage());
+		}
 		return "redirect:/people";
 	}
 	

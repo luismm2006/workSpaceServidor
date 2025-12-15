@@ -18,17 +18,33 @@ public class PersonService {
 			this.personRepository = personRepository;
 		}
 		
-		public List<PersonaModel> getPeople() {
-			return personRepository.findAll();
+		public List<PersonaModel> getPeople() throws Exception {
+			try {
+				return personRepository.findAll();				
+			} catch (Exception e) {
+				throw new Exception("Error al traer las personas");
+			}
 		}
 		
-		public void postPeople(PersonaModel personaModel) {
-			personRepository.save(personaModel);
+		public void postPeople(PersonaModel personaModel) throws Exception {
+			try {
+				personRepository.save(personaModel);
+			} catch (Exception e) {
+				throw new Exception("Error al mandar las personas");
+			}
 		}
-		public PersonaModel editPeople(Integer id) {
-			return personRepository.findById(id).get();
+		public PersonaModel editPeople(Integer id) throws Exception {
+			try {
+				return personRepository.findById(id).get();
+			} catch (Exception e) {
+				throw new Exception("Error al editar las personas");
+			}
 		}
-		public void deletePeople(Integer id) {
-			personRepository.deleteById(id);
+		public void deletePeople(Integer id) throws Exception {
+			try {
+				personRepository.deleteById(id);
+			} catch (Exception e) {
+				throw new Exception("Error al eliminar las personas");
+			}
 		}
 }

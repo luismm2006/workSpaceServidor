@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Personas</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+	<div th:if="${result != null}">
+    	<span th:text="${result}"></span>
+	</div>
+
+    
+
+    <div class="card form-card">
+      <h2>Añadir persona</h2>
+
+      <form th:action="@{/addPeople}" th:method="post" th:object="${person}">
+		<input type="hidden" th:field="*{id}">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" th:field="*{name}">
+		  <span th:errors="*{name}">Errores: </span>
+        </div>
+
+        <div class="form-group">
+          <label>Apellidos</label>
+          <input type="text" th:field="*{surname}">
+		  <span th:errors="*{surname}">Errores: </span>
+        </div>
+
+        <div class="form-group">
+          <label>Sexo</label>
+          <div class="radio-group">
+            <label><input type="radio" name="sexo" value="0" th:field="*{sexo}"> Hombre</label>
+            <label><input type="radio" name="sexo" value="1" th:field="*{sexo}"> Mujer</label>
+          </div>
+			<span th:errors="*{sexo}"></span>
+        </div>
+
+        <button type="submit" class="btn-primary">Guardar</button>
+      </form>
+    </div>
+
+  </div>
+
+</body>
+</html>

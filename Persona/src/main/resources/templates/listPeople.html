@@ -9,7 +9,12 @@
 <body>
 
   <div class="container">
-
+	<div th:if="${result != null}">
+    	<span th:text="${result}"></span>
+	</div>
+	<form th:action="@{/form}" th:method="get">
+	    <button type="submit" class="action-btn btn-delete">Añadir</button>
+	</form>
     <div class="card">
       <h2>Listado de personas</h2>
 
@@ -28,12 +33,12 @@
             <td th:text="${item.surname}"></td>
             <td th:text="${item.sexo ? 'Mujer' : 'Hombre'}"></td>
 			<td>
-				<form th:action="@{/people/edit}" th:method="post">
+				<form th:action="@{/people/edit}" th:method="get">
 				    <input type="hidden" name="id" th:value="${item.id}">
 				    <button type="submit" class="action-btn btn-edit">Editar</button>
 				</form>
 
-				<form th:action="@{/people/delete}" th:method="post">
+				<form th:action="@{/people/delete}" th:method="get">
 				    <input type="hidden" name="id" th:value="${item.id}">
 				    <button type="submit" class="action-btn btn-delete">Eliminar</button>
 				</form>
@@ -43,35 +48,7 @@
       </table>
     </div>
 
-    <div class="card form-card">
-      <h2>Añadir persona</h2>
-
-      <form action="/" th:method="post" th:object="${person}">
-		<input type="hidden" th:field="*{id}">
-        <div class="form-group">
-          <label>Nombre</label>
-          <input type="text" th:field="*{name}">
-		  <span th:errors="*{name}">Errores: </span>
-        </div>
-
-        <div class="form-group">
-          <label>Apellidos</label>
-          <input type="text" th:field="*{surname}">
-		  <span th:errors="*{surname}">Errores: </span>
-        </div>
-
-        <div class="form-group">
-          <label>Sexo</label>
-          <div class="radio-group">
-            <label><input type="radio" name="sexo" value="0" th:field="*{sexo}"> Hombre</label>
-            <label><input type="radio" name="sexo" value="1" th:field="*{sexo}"> Mujer</label>
-          </div>
-			<span th:errors="*{sexo}"></span>
-        </div>
-
-        <button type="submit" class="btn-primary">Guardar</button>
-      </form>
-    </div>
+    
 
   </div>
 
