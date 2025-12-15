@@ -8,9 +8,10 @@
 
 <body>
 
-	<div th:if="${result != null}">
-    	<span th:text="${result}"></span>
+	<div th:if="${result != null}" class="result-message">
+	    <span th:text="${result}"></span>
 	</div>
+
 
     
 
@@ -21,29 +22,29 @@
 		<input type="hidden" th:field="*{id}">
         <div class="form-group">
           <label>Nombre</label>
-          <input type="text" th:field="*{name}"  th:disabled="${mode == 'delete'}">
+          <input type="text" th:field="*{name}"  th:disabled="${mode == 'delete' or result != null}">
 		  <span th:errors="*{name}">Errores: </span>
         </div>
 
         <div class="form-group">
           <label>Apellidos</label>
-          <input type="text" th:field="*{surname}"  th:disabled="${mode == 'delete'}">
+          <input type="text" th:field="*{surname}"  th:disabled="${mode == 'delete' or result != null}">
 		  <span th:errors="*{surname}">Errores: </span>
         </div>
 
         <div class="form-group">
           <label>Sexo</label>
           <div class="radio-group">
-            <label><input type="radio" name="sexo" value="0" th:field="*{sexo}"  th:disabled="${mode == 'delete'}"> Hombre</label>
-            <label><input type="radio" name="sexo" value="1" th:field="*{sexo}"  th:disabled="${mode == 'delete'}"> Mujer</label>
+            <label><input type="radio" name="sexo" value="0" th:field="*{sexo}"  th:disabled="${mode == 'delete' or result != null}"> Hombre</label>
+            <label><input type="radio" name="sexo" value="1" th:field="*{sexo}"  th:disabled="${mode == 'delete' or result != null}"> Mujer</label>
           </div>
 			<span th:errors="*{sexo}"></span>
         </div>
 
-        <button type="submit" class="btn-primary"><span th:text="${mode == 'delete'} ? 'Eliminar' : (${person.id} != null ? 'Actualizar' : 'Añadir')"></button>
+        <button type="submit" class="btn-primary" th:classappend="${mode == 'delete'} ? ' btn-edit' : (${person.id} != null ? 'btn-edit' : 'btn-add')"><span th:text="${mode == 'delete'} ? 'Eliminar' : (${person.id} != null ? 'Actualizar' : 'Añadir')"></button>
       </form>
 	  <form th:action="@{'/'}">	
-		<button type="submit" class="btn-primary">Volver</button>
+		<button type="submit" class="action-btn btn-delete">Volver</button>
 	  </form>
     </div>
 

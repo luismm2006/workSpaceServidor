@@ -25,6 +25,8 @@ public class PersonController {
 	}
 	
 	
+	
+	
 	@GetMapping({"/", "/people"})
 	public String getPeople(Model model) {
 		try {
@@ -35,6 +37,10 @@ public class PersonController {
 		model.addAttribute("person", new PersonaModel());
 		return "listPeople";
 	}
+	
+	
+	
+	
 	
 	
 	@GetMapping("/addPeople")
@@ -62,9 +68,11 @@ public class PersonController {
 		return "redirect:/people";
 	}
 	
+	
+	
+	
 	@GetMapping("/editPeople")
 	public String getEditPeople(@RequestParam Integer id, Model model) {
-		model.addAttribute("person", new PersonaModel());
 		PersonaModel people;
 		try {
 			people = personService.findById(id);
@@ -90,9 +98,13 @@ public class PersonController {
 	}
 
 	
+	
+	
+	
+	
+	
 	@GetMapping("/deletePeople")
 	public String getDeletePeople(@RequestParam Integer id, Model model) {
-		model.addAttribute("person", new PersonaModel());
 		model.addAttribute("mode", "delete");
 		PersonaModel people; 
 		try {

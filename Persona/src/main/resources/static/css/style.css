@@ -92,9 +92,30 @@ input[type="text"] {
   cursor: pointer;
 }
 
-.btn-primary:hover {
-  background: #1d4ed8;
+/* MENSAJES DE RESULTADO / ERROR */
+.result-message {
+  text-align: center;
+  width: 97,5%;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #b91c1c;          /* rojo oscuro */
+  background: #fee2e2;     /* rojo muy suave */
+  border: 1px solid #fecaca;
 }
+
+/* Animación suave de aparición */
+.result-message {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 
 /* BOTONES DE ACCIÓN EN LA TABLA */
 .action-btn {
@@ -124,5 +145,150 @@ input[type="text"] {
 }
 
 .btn-delete:hover {
+  background: #dc2626;
+}
+/* CONTENEDOR GENERAL */
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+/* BOTÓN AÑADIR */
+.container > form {
+  align-self: flex-end;
+}
+
+.container > form .action-btn {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+}
+
+/* TARJETA DEL LISTADO */
+.card {
+  background: #ffffff;
+  padding: 24px 28px;
+  border-radius: 10px;
+  box-shadow:
+    0 10px 15px rgba(0, 0, 0, 0.05),
+    0 4px 6px rgba(0, 0, 0, 0.04);
+}
+
+.card h2 {
+  margin-bottom: 18px;
+  font-size: 1.3rem;
+  color: #111827;
+}
+
+/* TABLA */
+.people-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.people-table th {
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.people-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.people-table tr:hover {
+  background: #f3f4f6;
+}
+
+/* FORMULARIOS DENTRO DE LA TABLA */
+.people-table td form {
+  margin: 0;
+}
+
+.people-table td form + form {
+  margin-top: 6px; /* separación entre botones */
+}
+
+/* BOTONES DE ACCIÓN */
+.action-btn {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* Botón Editar */
+.btn-edit {
+  background: #10b981; /* verde */
+  color: white;
+}
+
+.btn-add {
+  background: #10b981; /* verde */
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #059669;
+}
+
+/* Botón Eliminar */
+.btn-delete {
+  background: #ef4444; /* rojo */
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+}
+
+/* ESTILO PARA INPUTS DESHABILITADOS */
+input[disabled],
+input[disabled]:hover,
+input[disabled]:focus,
+.radio-group input[disabled] {
+  background: #f3f4f6;       /* gris suave */
+  border-color: #d1d5db;     /* mismo borde */
+  color: #6b7280;            /* texto gris */
+  cursor: not-allowed;       /* icono de prohibido */
+  opacity: 0.8;              /* ligera transparencia */
+}
+
+/* DESHABILITAR CLIC EN RADIO DESDE EL LABEL */
+.radio-group label input[disabled] + span,
+.radio-group label input[disabled] {
+  pointer-events: none;
+}
+
+/* ESTILO PARA EL FORMULARIO EN MODO DELETE */
+.form-card.delete-mode {
+  border: 2px solid #ef4444;     /* borde rojo */
+  background: #fff5f5;           /* fondo rosado suave */
+}
+
+.form-card.delete-mode h2 {
+  color: #b91c1c;                /* título rojo */
+}
+
+/* BOTÓN ELIMINAR MÁS DESTACADO */
+.btn-primary.delete-btn {
+  background: #ef4444;
+}
+
+.btn-primary.delete-btn:hover {
   background: #dc2626;
 }
