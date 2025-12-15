@@ -12,7 +12,7 @@
 	<div th:if="${result != null}">
     	<span th:text="${result}"></span>
 	</div>
-	<form th:action="@{/form}" th:method="get">
+	<form th:action="@{/addPeople}" th:method="get">
 	    <button type="submit" class="action-btn btn-delete">Añadir</button>
 	</form>
     <div class="card">
@@ -33,13 +33,15 @@
             <td th:text="${item.surname}"></td>
             <td th:text="${item.sexo ? 'Mujer' : 'Hombre'}"></td>
 			<td>
-				<form th:action="@{/people/edit}" th:method="get">
+				<form th:action="@{/editPeople}" th:method="get">
 				    <input type="hidden" name="id" th:value="${item.id}">
+					<input type="hidden" name="edit" th:value="edit">
 				    <button type="submit" class="action-btn btn-edit">Editar</button>
 				</form>
 
-				<form th:action="@{/people/delete}" th:method="get">
+				<form th:action="@{/deletePeople}" th:method="get">
 				    <input type="hidden" name="id" th:value="${item.id}">
+					<input type="hidden" name="delete" th:value="delete">
 				    <button type="submit" class="action-btn btn-delete">Eliminar</button>
 				</form>
 			</td>

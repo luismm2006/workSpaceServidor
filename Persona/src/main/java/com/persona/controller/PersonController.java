@@ -36,11 +36,6 @@ public class PersonController {
 		return "listPeople";
 	}
 	
-	@GetMapping("/form")
-	public String getForm(Model model) {
-		model.addAttribute("person", new PersonaModel());
-		return "form";
-	}
 	
 	@GetMapping("/addPeople")
 	public String getAddPeople(Model model) {
@@ -68,33 +63,48 @@ public class PersonController {
 	}
 	
 	@GetMapping("/editPeople")
-	public String getEditPeople(Model model) {
+	public String getEditPeople(@RequestParam Integer id, Model model) {
 		model.addAttribute("person", new PersonaModel());
+		PersonaModel people;
+		try {
+			people = personService.findById(id);
+			model.addAttribute("person", people); // carga datos en el formulario
+		} catch (Exception e) {
+			model.addAttribute("result", e.getMessage());
+		} 	
 		return "form";
 	}
 	
 	@PostMapping("/editPeople")
-	public String editPerson(@RequestParam Integer id, Model model) {
-
-	    PersonaModel persona;
-		try {
-			persona = personService.editPeople(id);
-			model.addAttribute("person", persona); // carga datos en el formulario
-		} catch (Exception e) {
-			model.addAttribute("result", e.getMessage());
-		} //trae esa persona por ese id, incluye el id y los demás campos, por eso accede al id en el html
-
-	    try {
-			model.addAttribute("listPeople", personService.getPeople());
-		} catch (Exception e) {
-			model.addAttribute("result", e.getMessage());
-		} //  mantiene la tabla
-
-	    return "redirect:/people"; 
-	    // misma vista para poder hacer el Post que está en el listPeople, al tener en el html un input hidden con el id, al mandar el id lo puede almacenar, sino hay lo crea bbdd
+	public String editPerson(Model model, @Validated @ModelAttribute("person") PersonaModel personaModel, BindingResult bindingResult) {
+		 if (bindingResult.hasErrors()) {
+		        return "form";
+		 }
+		 try {
+		    personService.updatePeople(personaModel);
+		 } catch (Exception e) {
+		    model.addAttribute("result", e.getMessage());
+		       return "form";
+		 }
+		 return "redirect:/people";
 	}
 
-	@PostMapping("/people/delete")
+	
+	@GetMapping("/deletePeople")
+	public String getDeletePeople(@RequestParam Integer id, Model model) {
+		model.addAttribute("person", new PersonaModel());
+		model.addAttribute("mode", "delete");
+		PersonaModel people; 
+		try {
+			people = personService.findById(id);
+			model.addAttribute("person", people);
+		} catch (Exception e) {
+			model.addAttribute("result", e.getMessage());
+		}
+		return "form";
+	}
+	
+	@PostMapping("/deletePeople")
 	public String deletePerson(@RequestParam Integer id, Model model) {
 		try {
 			personService.deletePeople(id);

@@ -15,33 +15,36 @@
     
 
     <div class="card form-card">
-      <h2>Añadir persona</h2>
+      <h2>Formulario persona</h2>
 
-      <form th:action="@{/addPeople}" th:method="post" th:object="${person}">
+      <form th:action="${mode == 'delete'} ? @{/deletePeople} : (${person.id} != null ? @{/editPeople} : @{/addPeople})" th:method="post" th:object="${person}">
 		<input type="hidden" th:field="*{id}">
         <div class="form-group">
           <label>Nombre</label>
-          <input type="text" th:field="*{name}">
+          <input type="text" th:field="*{name}"  th:disabled="${mode == 'delete'}">
 		  <span th:errors="*{name}">Errores: </span>
         </div>
 
         <div class="form-group">
           <label>Apellidos</label>
-          <input type="text" th:field="*{surname}">
+          <input type="text" th:field="*{surname}"  th:disabled="${mode == 'delete'}">
 		  <span th:errors="*{surname}">Errores: </span>
         </div>
 
         <div class="form-group">
           <label>Sexo</label>
           <div class="radio-group">
-            <label><input type="radio" name="sexo" value="0" th:field="*{sexo}"> Hombre</label>
-            <label><input type="radio" name="sexo" value="1" th:field="*{sexo}"> Mujer</label>
+            <label><input type="radio" name="sexo" value="0" th:field="*{sexo}"  th:disabled="${mode == 'delete'}"> Hombre</label>
+            <label><input type="radio" name="sexo" value="1" th:field="*{sexo}"  th:disabled="${mode == 'delete'}"> Mujer</label>
           </div>
 			<span th:errors="*{sexo}"></span>
         </div>
 
-        <button type="submit" class="btn-primary">Guardar</button>
+        <button type="submit" class="btn-primary"><span th:text="${mode == 'delete'} ? 'Eliminar' : (${person.id} != null ? 'Actualizar' : 'Añadir')"></button>
       </form>
+	  <form th:action="@{'/'}">	
+		<button type="submit" class="btn-primary">Volver</button>
+	  </form>
     </div>
 
   </div>

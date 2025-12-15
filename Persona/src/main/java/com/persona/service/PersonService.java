@@ -33,13 +33,22 @@ public class PersonService {
 				throw new Exception("Error al mandar las personas");
 			}
 		}
-		public PersonaModel editPeople(Integer id) throws Exception {
+		public PersonaModel findById(Integer id) throws Exception {
 			try {
 				return personRepository.findById(id).get();
 			} catch (Exception e) {
-				throw new Exception("Error al editar las personas");
+				throw new Exception("Error al buscar las personas");
 			}
 		}
+		
+		public void updatePeople(PersonaModel personaModel) throws Exception {
+			try {
+				personRepository.save(personaModel);
+			} catch (Exception e) {
+				throw new Exception("Error al actualizar las personas");
+			}
+		}
+		
 		public void deletePeople(Integer id) throws Exception {
 			try {
 				personRepository.deleteById(id);
