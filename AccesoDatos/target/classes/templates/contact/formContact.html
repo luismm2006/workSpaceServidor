@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout.html}">
+<head>
+    <th:block th:fragment="page-head">
+        <title th:text="${action == 'create'} ? 'Añadir Nuevo Contacto' : (${action == 'edit'} ? 'Editar Contacto' : 'Confirmar Eliminación')"></title>
+    </th:block>
+</head>
+<body>
+
+    <div th:fragment="mainContent">
+
+        <h2 class="mb-4" th:classappend="${action == 'delete'} ? 'text-danger' : 'text-primary'">
+            <span th:if="${action == 'create'}">Añadir Nuevo Contacto</span>
+            <span th:if="${action == 'edit'}">Editar Contacto</span>
+            <span th:if="${action == 'delete'}">Confirmar Eliminación</span>
+        </h2>
+
+
+        
+        <form th:action="${action == 'create'} ? @{/contact/new} : 
+        		 (${action == 'edit'} ? @{/contact/edit/${contact.idContact}} : 
+                 @{/contact/delete(id=${contact.idContact})})" th:object="${contact}" th:method="POST"   class="p-4 border rounded shadow-sm">
+            
+            <input type="hidden" th:if="${action != 'create'}" th:field="*{idContact}" />
+
+            <div class="mb-3">
+                <label for="type" class="form-label">Tipo:</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="type" 
+                    th:field="*{typeContact}" 
+                    placeholder="Introduce el nombre"
+                    th:disabled="${action == 'delete'}" /> 
+                <div th:if="${#fields.hasErrors('typeContact')}" class="text-danger small" th:errors="*{typeContact}">Error de tipo</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="value" class="form-label">Valor:</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="value" 
+                    th:field="*{value}" 
+                    placeholder="Introduce los apellidos"
+                    th:disabled="${action == 'delete'}" />
+                <div th:if="${#fields.hasErrors('value')}" class="text-danger small" th:errors="*{value}">Error de valores</div>
+            </div>
+
+
+            <div class="mt-4">
+                <th:block>
+                    <button type="submit" class="btn btn-primary me-2">
+                        <span th:if="${action == 'create'}">Guardar</span>
+                        <span th:if="${action == 'edit'}">Actualizar</span>
+                        <span th:if="${action == 'delete'}">Borrar</span>
+                    </button>
+                    <a th:href="@{/contact/listContacts}" class="btn btn-secondary">Cancelar</a>
+                    
+                  
+                </th:block>
+
+            </div>
+
+        </form>
+        
+    </div>
+
+</body>
+</html>
