@@ -18,7 +18,7 @@
 
         
         <form th:action="${action == 'create'} ? @{/person/new} : 
-        		 (${action == 'edit'} ? @{/person/edit/${person.id}} : 
+        		 (${action == 'edit'} ? @{/person/edit/{id}(id = ${person.id})} : 
                  @{/person/delete(id=${person.id})})" th:object="${person}" th:method="POST"   class="p-4 border rounded shadow-sm">
             
             <input type="hidden" th:if="${action != 'create'}" th:field="*{id}" />

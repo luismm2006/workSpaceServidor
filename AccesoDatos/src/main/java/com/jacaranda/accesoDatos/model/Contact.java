@@ -19,7 +19,7 @@ public class Contact {
 	@Column(name = "id_contacto")
 	private Integer idContact;
 	
-	@NotNull
+	
 	@Column(name = "id_persona")
 	private Integer idPerson;
 	

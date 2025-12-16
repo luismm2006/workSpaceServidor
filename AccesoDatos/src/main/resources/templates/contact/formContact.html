@@ -18,7 +18,7 @@
 
         
         <form th:action="${action == 'create'} ? @{/contact/new} : 
-        		 (${action == 'edit'} ? @{/contact/edit/${contact.idContact}} : 
+        		 (${action == 'edit'} ? @{/contact/edit/{id}(id=${contact.idContact})} : 
                  @{/contact/delete(id=${contact.idContact})})" th:object="${contact}" th:method="POST"   class="p-4 border rounded shadow-sm">
             
             <input type="hidden" th:if="${action != 'create'}" th:field="*{idContact}" />
@@ -30,7 +30,7 @@
                     class="form-control" 
                     id="type" 
                     th:field="*{typeContact}" 
-                    placeholder="Introduce el nombre"
+                    placeholder="Introduce el tipo: "
                     th:disabled="${action == 'delete'}" /> 
                 <div th:if="${#fields.hasErrors('typeContact')}" class="text-danger small" th:errors="*{typeContact}">Error de tipo</div>
             </div>
@@ -42,7 +42,7 @@
                     class="form-control" 
                     id="value" 
                     th:field="*{value}" 
-                    placeholder="Introduce los apellidos"
+                    placeholder="Introduce el valor: "
                     th:disabled="${action == 'delete'}" />
                 <div th:if="${#fields.hasErrors('value')}" class="text-danger small" th:errors="*{value}">Error de valores</div>
             </div>
