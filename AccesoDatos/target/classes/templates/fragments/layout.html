@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Enlace a Bootstrap CSS descargado -->
+	<link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" 	rel="stylesheet" />
+	<link th:href="@{/css/app.css}" rel="stylesheet" />
+	<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}" 	defer></script>
+	<script th:src="@{/js/app.js}" defer></script>
+</head>
+<body>
+	<!-- Menú -->
+	<header>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">App Gestión</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPersonas" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                           Personas
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownPersonas">
+                            <li><a class="dropdown-item" th:href="@{/person/list}">Listado</a></li>
+                            <li><a class="dropdown-item" th:href="@{/person/new}">Añadir</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProyectos" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                           Proyectos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownProyectos">
+                            <li><a class="dropdown-item" th:href="@{/project/list}">Listado</a></li>
+                            <li><a class="dropdown-item" th:href="@{/project/new}">Añadir</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownContactos" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                           Contactos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownContactos">
+                            <li><a class="dropdown-item" th:href="@{/contact/list}">Listado</a></li>
+                            <li><a class="dropdown-item" th:href="@{/contact/new}">Añadir</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAsignaciones" role="button" 
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                           Asignaciones
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownAsignaciones">
+                            <li><a class="dropdown-item" th:href="@{/assignment/list}">Listado</a></li>
+                            <li><a class="dropdown-item" th:href="@{/assignment/new}">Añadir</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+    </header>
+	<!-- Contenido específico de cada página -->
+	<main>
+		<div style="padding-top: 40px;">
+			<div class="container text-center">
+				<div th:insert="~{::mainContent}"></div>
+			</div>
+		</div>
+	</main>
+
+</body>
+<footer class="bg-light text-center text-lg-start">
+	<script th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/1.12.9/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js}"></script>
+</footer>
+
+</html>

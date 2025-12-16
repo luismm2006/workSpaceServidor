@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout.html}">
+<head>
+    <th:block th:fragment="page-head">
+        <title th:text="${action == 'create'} ? 'Añadir Nueva Persona' : (${action == 'edit'} ? 'Editar Persona' : 'Confirmar Eliminación')"></title>
+    </th:block>
+</head>
+<body>
+
+    <div th:fragment="mainContent">
+
+        <h2 class="mb-4" th:classappend="${action == 'delete'} ? 'text-danger' : 'text-primary'">
+            <span th:if="${action == 'create'}">Añadir Nueva Persona</span>
+            <span th:if="${action == 'edit'}">Editar Persona</span>
+            <span th:if="${action == 'delete'}">Confirmar Eliminación</span>
+        </h2>
+
+
+        
+        <form th:action="${action == 'create'} ? @{/person/new} : 
+        		 (${action == 'edit'} ? @{/person/edit/${person.id}} : 
+                 @{/person/delete(id=${person.id})})" th:object="${person}" th:method="POST"   class="p-4 border rounded shadow-sm">
+            
+            <input type="hidden" th:if="${action != 'create'}" th:field="*{id}" />
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre:</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="name" 
+                    th:field="*{name}" 
+                    placeholder="Introduce el nombre"
+                    th:disabled="${action == 'delete'}" /> 
+                <div th:if="${#fields.hasErrors('name')}" class="text-danger small" th:errors="*{name}">Error de nombre</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="lastName" class="form-label">Apellidos:</label>
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    id="lastName" 
+                    th:field="*{lastName}" 
+                    placeholder="Introduce los apellidos"
+                    th:disabled="${action == 'delete'}" />
+                <div th:if="${#fields.hasErrors('lastName')}" class="text-danger small" th:errors="*{lastName}">Error de apellidos</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Sexo:</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input 
+                            class="form-check-input" 
+                            type="radio" 
+                            id="sexTrue" 
+                            th:field="*{sex}" 
+                            th:value="true" 
+                            th:disabled="${action == 'delete'}" />
+                        <label class="form-check-label" for="sexTrue">Mujer</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input 
+                            class="form-check-input" 
+                            type="radio" 
+                            id="sexFalse" 
+                            th:field="*{sex}" 
+                            th:value="false" 
+                            th:disabled="${action == 'delete'}" />
+                        <label class="form-check-label" for="sexFalse">Hombre</label>
+                    </div>
+                </div>
+                <div th:if="${#fields.hasErrors('sex')}" class="text-danger small" th:errors="*{sex}">Error de sexo</div>
+            </div>
+
+            <div class="mt-4">
+                <th:block>
+                    <button type="submit" class="btn btn-primary me-2">
+                        <span th:if="${action == 'create'}">Guardar</span>
+                        <span th:if="${action == 'edit'}">Actualizar</span>
+                        <span th:if="${action == 'delete'}">Borrar</span>
+                    </button>
+                    <a th:href="@{/person/list}" class="btn btn-secondary">Cancelar</a>
+                    
+                  
+                </th:block>
+
+            </div>
+
+        </form>
+        
+    </div>
+
+</body>
+</html>
