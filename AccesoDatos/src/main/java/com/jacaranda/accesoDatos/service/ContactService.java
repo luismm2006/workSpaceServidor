@@ -3,7 +3,7 @@ package com.jacaranda.accesoDatos.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
+import com.jacaranda.accesoDatos.controller.ContactsController;
 import com.jacaranda.accesoDatos.model.Contact;
 import com.jacaranda.accesoDatos.model.Person;
 import com.jacaranda.accesoDatos.repository.ContactRepository;
@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 
 @Service
 public class ContactService {
+
 
     private final ContactRepository contactRepository;
 	
@@ -27,6 +28,15 @@ public class ContactService {
 		}
 	}
 
+	public List<Contact> findByPersonId(Integer id) throws Exception {
+		try {
+			return contactRepository.findByPersonId(id);
+		} catch (Exception e) {
+			throw new Exception("Error de acceso a la base de datos. Contacte con el administrador");
+		}
+	}
+	
+	
 	public Contact save(Contact contact) throws Exception {
 		try {
 			return contactRepository.save(contact);
@@ -46,6 +56,7 @@ public class ContactService {
 	public Contact update(Integer id, Contact contactDetails) throws Exception {
 		Contact existingContact = findById(id); 
         
+		existingContact.setPerson(contactDetails.getPerson());
 		existingContact.setTypeContact(contactDetails.getTypeContact());
 		existingContact.setValue(contactDetails.getValue());
 		

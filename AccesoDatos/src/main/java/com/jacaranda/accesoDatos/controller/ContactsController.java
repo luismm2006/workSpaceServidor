@@ -41,6 +41,17 @@ public class ContactsController {
 			return "contact/listContacts";
 		}
 
+		@GetMapping("/listContacts/{id}")
+		public String listContactsPeople(Model model, @PathVariable Integer id) {
+			try {
+				List<Contact> contact = contactService.findByPersonId(id);
+				model.addAttribute("contact", contact);
+			} catch (Exception e) {
+				model.addAttribute("error", "Error al cargar el listado de contactos: " + e.getMessage());
+				model.addAttribute("contact", new ArrayList<Contact>()); // Asegura que la vista no falle
+			}
+			return "contact/listContacts";
+		}
 		/*@GetMapping("/new")
 		public String showNewForm(Model model) {
 			model.addAttribute("contact", new Contact());

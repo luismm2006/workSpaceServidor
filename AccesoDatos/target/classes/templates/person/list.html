@@ -28,6 +28,7 @@
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>Sexo</th>
+                        <th>Contacto</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -37,7 +38,7 @@
                         <td th:text="${person.name}"></td>
                         <td th:text="${person.lastName}"></td>
                         <td th:text="${person.sex} ? 'Mujer' : 'Hombre'"></td>
-                        
+						<td><a th:text="${person.listContact.size()}" th:href="@{/contact/listContacts/{id}(id=${person.id})}"></a></td>                        
                         <td class="d-flex justify-content-start">
                             <a th:href="@{/person/edit/{id}(id=${person.id})}" 
                                class="btn btn-sm btn-info text-white me-2" title="Editar">

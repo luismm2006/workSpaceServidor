@@ -26,7 +26,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Id_Contacto</th>
-                        <th>Id_Persona</th>
+                        <th>Persona</th>
                         <th>Tipo_Contacto</th>
                         <th>Valor</th>
 						<th>Acción</th>
@@ -36,7 +36,7 @@
 
                     <tr th:each="contac : ${contact}">
                         <td th:text="${contac.idContact}"></td>
-                        <td th:text="${contac.idPerson}"></td>
+                        <td th:text="${contac.person.name}"></td>
                         <td th:text="${contac.typeContact}"></td>
                         <td th:text="${contac.value}"></td>
                         

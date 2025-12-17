@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -19,9 +21,9 @@ public class Contact {
 	@Column(name = "id_contacto")
 	private Integer idContact;
 	
-	
-	@Column(name = "id_persona")
-	private Integer idPerson;
+	@ManyToOne
+	@JoinColumn(name = "id_persona")
+	private Person person;
 	
 	@NotNull
 	@Column(name = "tipo_contacto")
@@ -39,12 +41,12 @@ public class Contact {
 		this.idContact = idContact;
 	}
 
-	public Integer getIdPerson() {
-		return idPerson;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setIdPerson(Integer idPerson) {
-		this.idPerson = idPerson;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	public String getTypeContact() {
@@ -65,7 +67,7 @@ public class Contact {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idContact, idPerson, typeContact, value);
+		return Objects.hash(idContact, person, typeContact, value);
 	}
 
 	@Override
@@ -77,7 +79,7 @@ public class Contact {
 		if (getClass() != obj.getClass())
 			return false;
 		Contact other = (Contact) obj;
-		return Objects.equals(idContact, other.idContact) && Objects.equals(idPerson, other.idPerson)
+		return Objects.equals(idContact, other.idContact) && Objects.equals(person, other.person)
 				&& Objects.equals(typeContact, other.typeContact) && Objects.equals(value, other.value);
 	}
 
